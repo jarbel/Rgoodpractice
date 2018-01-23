@@ -1,6 +1,6 @@
 ---
-title: "R good practice"
-subtitle: "https://privefl.github.io/R-presentation/rstudio-git.html"
+title: "Good practice for writing R code and R packages"
+subtitle: "https://jarbel.github.io/Rgoodpractice/rpresentation.html"
 author: "Julyan Arbel & Alexis Arnaud"
 date: "February 8, 2018"
 output:
@@ -412,12 +412,12 @@ class: center, middle, inverse
 
 Presentation available at
 
-https://privefl.github.io/R-presentation/rstudio-git.html
+https://jarbel.github.io/Rgoodpractice/rpresentation.html
 
 <br>
 
-Twitter: [@privefl](https://twitter.com/privefl) & [@magg_richard](https://twitter.com/magg_richard)
+Twitter: [@julyanarbel](https://twitter.com/julyanarbel)
 
-GitHub: [@privefl](https://github.com/privefl) & [@magrichard](https://github.com/magrichard)
+GitHub: [@jarbel](https://github.com/jarbel)
 
 .footnote[Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).]
