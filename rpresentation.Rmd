@@ -1,6 +1,8 @@
 ---
 title: "Good practice for writing R code and R packages"
-subtitle: "https://jarbel.github.io/Rgoodpractice/rpresentation.html"
+subtitle: "https://jarbel.github.io/Rgoodpractice/rpresentation.html 
+Slides very closely following http://style.tidyverse.org/
+"
 author: "Julyan Arbel & Alexis Arnaud"
 date: "February 8, 2018"
 output:
@@ -21,13 +23,9 @@ knitr::opts_chunk$set(echo = FALSE, fig.align = "center", dev = "svg")
 
 class: center, middle, inverse
 
-Slides very closely following http://style.tidyverse.org/
 
 
-```{r, eval=FALSE, echo=TRUE}
-```
-
-# R coding style
+# 1. R coding style
 
 ---
 
@@ -168,26 +166,74 @@ x = 5
 
 ---
 
-### 
+## lintr and styler package
+
 
 ```{r, eval=FALSE, echo=TRUE}
+install.packages(c("lintr", "styler"))
+library("lintr")
+library("styler")
 ```
 
 ---
 
-### 
+### lintr package
 
 ```{r, eval=FALSE, echo=TRUE}
+lint(bad_style.R)
+```
+
+
+---
+
+### lintr package
+
+```{r, out.width="90%"}
+knitr::include_graphics("https://camo.githubusercontent.com/20dbcc29a25f1e86dcde02d2056508c322f6ae05/687474703a2f2f692e696d6775722e636f6d2f50494b6e70626e2e706e67")
+```
+
+
+---
+
+### styler package
+
+```{r, out.width="100%"}
+knitr::include_graphics("https://raw.githubusercontent.com/lorenzwalthert/some_raw_data/master/styler_0.1.gif")
 ```
 
 ---
 
-## lintr package
+### styler package
+
+You can use the `style_text()` function as follows
+
+```{r, eval=FALSE, echo=TRUE}
+ugly_code <- "a<-function( x){1+1}           "
+style_text(ugly_code)
+```
+
+
+```{r, eval=FALSE, echo=TRUE}
+# Bad
+a<-function( x){1+1}
+
+# Good
+a <- function(x) {
+  1 + 1
+}
+```
 
 
 ---
 
-## styler package
+### styler package
+
+As well as the following variants of `style_text()`:
+
+* `style_file()` styles .R and/or .Rmd files.
+* `style_dir()` styles all .R files in a directory.
+* `style_pkg()` styles the source files of an R package.
+* RStudio Addins for styling the active file, styling the current package and styling the highlighted code region.
 
 ---
 
@@ -206,7 +252,9 @@ To complete:
 
 ---
 
-# Create R packages
+class: center, middle, inverse
+
+# 2. Create R packages
 
 ---
 

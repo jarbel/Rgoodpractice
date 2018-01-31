@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Good practice for writing R code</title>
+    <title>Good practice for writing R code and R packages</title>
     <meta charset="utf-8">
     <meta name="author" content="Julyan Arbel &amp; Alexis Arnaud" />
     <link href="libs/remark-css/example.css" rel="stylesheet" />
@@ -10,8 +10,8 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# Good practice for writing R code
-## <a href="https://jarbel.github.io/Rgoodpractice/rpresentation.html" class="uri">https://jarbel.github.io/Rgoodpractice/rpresentation.html</a>
+# Good practice for writing R code and R packages
+## <a href="https://jarbel.github.io/Rgoodpractice/rpresentation.html" class="uri">https://jarbel.github.io/Rgoodpractice/rpresentation.html</a> Slides very closely following <a href="http://style.tidyverse.org/" class="uri">http://style.tidyverse.org/</a>
 ### Julyan Arbel &amp; Alexis Arnaud
 ### February 8, 2018
 
@@ -22,19 +22,17 @@ class: center, middle, inverse, title-slide
 
 class: center, middle, inverse
 
-Slides very closely following http://style.tidyverse.org/
 
 
-
-
+# 1. R coding style
 
 ---
 
-# Files
+## Files
 
 ---
 
-## Names
+### Names
 
 
 ```r
@@ -48,7 +46,7 @@ foo.r
 stuff.r
 ```
 
-## Structure
+### Structure
 
 
 
@@ -61,11 +59,11 @@ stuff.r
 
 ---
 
-# Syntax
+## Syntax
 
 ---
 
-## Object names
+### Object names
 
 Strive for names that are concise and meaningful.
 
@@ -95,14 +93,24 @@ mean &lt;- function(x) sum(x)
 
 ---
 
-## Spacing
+### Spacing
 
+Any style guide is fundamentally opinionated...
 
 
 ```r
-# Good
+# Good Hadley
 average &lt;- mean((feet / 12) + inches, na.rm = TRUE)
 sqrt(x^2 + y^2)
+x &lt;- 1:10
+base::get
+
+# Good Alexis
+average &lt;- mean(
+    ( feet / 12 ) + inches 
+  , na.rm = TRUE
+  )
+sqrt( x^2 + y^2 )
 x &lt;- 1:10
 base::get
 
@@ -115,7 +123,7 @@ base :: get
 
 ---
 
-## Indenting
+### Indenting
 
 
 ```r
@@ -131,7 +139,7 @@ message("Y is negative")
 
 ---
 
-## Long lines
+### Long lines
 
 Strive to limit your code to 80 characters per line.
 
@@ -152,7 +160,7 @@ do_something_very_complicated("that", requires, many, arguments,
 
 ---
 
-## Assignment
+### Assignment
 
 
 ```r
@@ -165,376 +173,103 @@ x = 5
 
 ---
 
-## 
+## lintr and styler package
 
+
+
+```r
+install.packages(c("lintr", "styler"))
+library("lintr")
+library("styler")
+```
+
+---
+
+### lintr package
+
+&lt;img src="https://camo.githubusercontent.com/20dbcc29a25f1e86dcde02d2056508c322f6ae05/687474703a2f2f692e696d6775722e636f6d2f50494b6e70626e2e706e67" width="90%" style="display: block; margin: auto;" /&gt;
 
 
 ---
 
-## 
+### styler package
 
-
-
-
-
-## RStudio Features
-
-- everything you can expect from a good IDE
-
-- keyboard shortcuts I use
-  1. *Crtl + Space* (autocompletion)
-  2. *Ctrl + Up* (command history &amp; search)
-  3. *Ctrl + Click* (function source code)
-  3. *Ctrl + Enter* (execute line of code)
-  4. *Ctrl + Shift + K* (knit)
-  4. *Ctrl + Shift + B* (build package or website)
-  4. *Ctrl + Shift + M* (pipe)
-  4. *Alt + Shift + K* to see all shortcuts
-  4. ...
-
-- Panels (everything is integrated, including **Git**)
-
-- **R Projects**
+&lt;img src="https://raw.githubusercontent.com/lorenzwalthert/some_raw_data/master/styler_0.1.gif" width="100%" style="display: block; margin: auto;" /&gt;
 
 ---
 
-## Releases 
+### styler package
 
-- Version 1.0 (November 1st, 2016)
-&lt;ul&gt;
-&lt;li&gt;Authoring tools for &lt;a href="http://rmarkdown.rstudio.com/r_notebooks.html"&gt;R Notebooks&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;Integrated support for the &lt;a href="http://spark.rstudio.com"&gt;sparklyr&lt;/a&gt; package (R interface to Spark).&lt;/li&gt;
-&lt;li&gt;Enhanced data import tools based on the &lt;a href="https://github.com/hadley/readr"&gt;readr&lt;/a&gt;, &lt;a href="https://github.com/hadley/readxl"&gt;readxl&lt;/a&gt; and &lt;a href="https://github.com/hadley/haven"&gt;haven&lt;/a&gt; packages.&lt;/li&gt;
-&lt;li&gt;Performance profiling via integration with the &lt;a href="https://github.com/rstudio/profvis"&gt;profvis&lt;/a&gt; package.&lt;/li&gt;
-&lt;li&gt;Authoring tools for R Markdown &lt;a href="http://rmarkdown.rstudio.com/rmarkdown_websites.html"&gt;websites&lt;/a&gt; and the &lt;a href="https://bookdown.org/"&gt;bookdown&lt;/a&gt; package.&lt;/li&gt;
-&lt;/ul&gt;
+You can use the `style_text()` function as follows
 
-- Version 1.1.383 (October 9th, 2017)
-  - integrated terminal
-  - new features for connections to data bases
-  - better object explorer (`View()`)
 
----
+```r
+ugly_code &lt;- "a&lt;-function( x){1+1}           "
+style_text(ugly_code)
+```
 
-## R Projects
 
-- **Meaningful structure** in one folder
 
-- The working directory automatically switches to the project's folder.
+```r
+# Bad
+a&lt;-function( x){1+1}
 
-- File tab displays the associated files and folders in the project
+# Good
+a &lt;- function(x) {
+  1 + 1
+}
+```
 
-- History of R commands and open files.
-
-- Any settings associated with the project, such as Git settings, are loaded.
-
-- Note that a *set-up.R* or even a *.Rprofile* file in the project's root directory enable project-specific settings to be loaded each time people work on the project.
 
 ---
 
-## Project-oriented workflow
+### styler package
 
-&lt;blockquote class="twitter-tweet" data-lang="fr" align="center"&gt;&lt;p lang="en" dir="ltr"&gt;The only two things that make &lt;a href="https://twitter.com/JennyBryan?ref_src=twsrc%5Etfw"&gt;@JennyBryan&lt;/a&gt; 😤😠🤯. Instead use projects + here::here() &lt;a href="https://twitter.com/hashtag/rstats?src=hash&amp;amp;ref_src=twsrc%5Etfw"&gt;#rstats&lt;/a&gt; &lt;a href="https://t.co/GwxnHePL4n"&gt;pic.twitter.com/GwxnHePL4n&lt;/a&gt;&lt;/p&gt;&amp;mdash; Hadley Wickham (@hadleywickham) &lt;a href="https://twitter.com/hadleywickham/status/940021008764846080?ref_src=twsrc%5Etfw"&gt;11 décembre 2017&lt;/a&gt;&lt;/blockquote&gt;
-&lt;script async src="https://platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
+As well as the following variants of `style_text()`:
 
-Read more at https://www.tidyverse.org/articles/2017/12/workflow-vs-script/
+* `style_file()` styles .R and/or .Rmd files.
+* `style_dir()` styles all .R files in a directory.
+* `style_pkg()` styles the source files of an R package.
+* RStudio Addins for styling the active file, styling the current package and styling the highlighted code region.
 
 ---
 
-## More
+## References
 
-Chapter [*Efficient set-up*](https://bookdown.org/csgillespie/efficientR/set-up.html) of
-
-&lt;img src="https://csgillespie.github.io/efficientR/figures/f0_web.png" width="45%" style="display: block; margin: auto;" /&gt;
+To complete:
+* http://style.tidyverse.org/
+* https://cran.r-project.org/web/packages/rockchalk/vignettes/Rstyle.pdf
+* https://journal.r-project.org/archive/2012-2/RJournal_2012-2_Baaaath.pdf
+* https://cran.r-project.org/doc/manuals/R-ints.html
+* https://google.github.io/styleguide/Rguide.xml
+* https://www.r-project.org/conferences/useR-2004/Keynotes/Maechler.pdf
+* https://stat.ethz.ch/Teaching/maechler/R/useR_2014/Maechler-2014-pr.pdf
+* http://andrewgelman.com/2007/09/18/style_guide_for/
+* http://blog.jom.link/ten_rules_reproductible_research.html
 
 ---
 
 class: center, middle, inverse
 
-# Version control (Git)
-
-## tracks changes to your code
+# 2. Create R packages
 
 ---
-
-## You don't use version control?
-
-&lt;br&gt;
-
-&lt;img src="https://www.tacomaworld.com/attachments/i-also-like-to-live-dangerously-jpg.760853/" width="75%" style="display: block; margin: auto;" /&gt;
-
----
-
-## Why should you use version control?
-
-Have you ever:
-
-- **Made a change to code, realised it was a mistake and wanted to revert back?**
-- **Lost code or had a backup that was too old?**
-- Had to maintain multiple versions of a product?
-- Wanted to see the difference between two (or more) versions of your code?
-- Wanted to prove that a particular change broke or fixed a piece of code?
-- Wanted to review the history of some code?
-- **Wanted to submit a change to someone else's code?**
-- **Wanted to share your code, or let other people work on your code?**
-- Wanted to see how much work is being done, and where, when and by whom?
-- Wanted to experiment with a new feature without interfering with working code?
-
-In these cases, and no doubt others, a version control system should make your life easier. 
-
-.footnote[Source: https://stackoverflow.com/a/1408464/6103040]
-
----
-
-## Why should you use version control?
-
-### Version control for the researcher
-
-&lt;img src="http://www.datacarpentry.org/rr-version-control/fig/phd101212s.png" width="45%" style="display: block; margin: auto;" /&gt;
-
----
-
-## Why should you use version control?
-
-### Version control for the data analyst: reproducible workflow
-
-&lt;center&gt;
-&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/s3JldKoA0zw" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen&gt;&lt;/iframe&gt;
-&lt;/center&gt;
-
-.footnote[Also, see https://stackoverflow.com/q/2712421/6103040]
-
----
-
-## Why should you use version control?
-
-### To work from anywhere
-
-&lt;img src="git.svg" width="85%" style="display: block; margin: auto;" /&gt;
-
----
-
-## Why should you use version control?
-
-### Working with GitHub, a line on your CV
-
-&lt;br&gt;
-
-&gt; A lot of students have said to me later, even first-year undergraduates, that using GitHub has helped them a lot when they went for an internship or a research position interview.
-
-&gt; They are able to say, "Oh, I already have worked with GitHub. I'm familiar with it. I know how it works.” So I think they are at least able to put that on their CVs and go into a situation where there's a research or data analysis team and say, "Yeah, sure. I am actually familiar with the same tools that you use."
-&gt;
-&gt; -- Mine Cetinkaya-Rundel, Duke University, RStudio
-
-.footnote[[Read more](https://github.com/blog/2336-invest-in-tools-students-can-grow-with-github-and-rstudio-for-data-science-at-duke-university)]
-
----
-
-## Why should you use version control?
-
-### To get a nice mosaic on GitHub
-
-&lt;img src="webshot-mosaic-github.png" width="80%" style="display: block; margin: auto;" /&gt;
-
----
-
-## Why should you use version control? 
-
-### February session: Best coding practices
-
-A. Arnaud &amp; J. Arbel will focus on
-
-- coding style
-
-- R packages (RStudio &amp; Git are super useful for developing!!)
-
-&lt;br&gt;
-
-### June session: Make your personal webpage with R
-
-We will focus on using R Markdown &amp; GitHub in order to easily make websites, presentations &amp; reports, and make them available online.
 
 
 
 ---
 
-## Git platforms (share your code, collaborate)
-
-- [GitHub](https://github.com/magrichard), [documentation](https://guides.github.com/activities/hello-world/) (only free for public repositories)
-
-- [GitLab UGA](https://gricad-gitlab.univ-grenoble-alpes.fr/), [documentation](https://docs.gricad-pages.univ-grenoble-alpes.fr/help/) or just [GitLab](https://about.gitlab.com/) (open source &amp; free)
-
-- [Bitbucket](https://bitbucket.org/) (free with less than 5 collaborators)
-
-- any server..
-
----
-
-## 3 main commands: commit, push, and pull
-
-- pull: update your local project with the latest version of the main project
-
-- commit: snapshot of your code at a specified point in time
-
-- push: merge your local modifications with the main project
-
-
----
-
-## Simple (solo) use of git to prevent merge conflicts
-
-&lt;br&gt;
-
-&lt;img src="meme-merge-conflicts.jpg" width="90%" style="display: block; margin: auto;" /&gt;
-
----
-
-## Simple (solo) use of git to prevent merge conflicts
-
-### When you open a project, always pull
-
-&lt;img src="http://s2.quickmeme.com/img/73/730acd1051914ae6cb59ae7e751498c477bfd0191cc2a07f90682451dc1da9d5.jpg" width="60%" style="display: block; margin: auto;" /&gt;
-
----
-
-## Simple (solo) use of git to prevent merge conflicts
-
-### Before you close a project, always push
-
-&lt;img src="https://hikaruzone.files.wordpress.com/2015/10/in-case-of-fire-1-git-commit-2-git-push-3-leave-building2.png?w=800&amp;h=559" width="80%" style="display: block; margin: auto;" /&gt;
-
----
-
-## Help with Git
-
-&lt;img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdltx925phiPYsw72GpjM30TBMn30YLTi8kAlf-N2sC_kTQNTiFQ" width="30%" style="display: block; margin: auto;" /&gt;
-
-- [H. Wickham's book](http://r-pkgs.had.co.nz/git.html)
-
-- [Happy Git and GitHub for the useR](http://happygitwithr.com/)
-
-- [Git cheatsheet](https://services.github.com/on-demand/downloads/github-git-cheat-sheet.pdf)
-
-- [When things go wrong](https://github.com/k88hudson/git-flight-rules)
-
-- [To fix a mistake](http://ohshitgit.com/)
-
-- [Create a new branch with git and manage branches](https://github.com/Kunena/Kunena-Forum/wiki/Create-a-new-branch-with-git-and-manage-branches)
-
----
-
-class: center, middle, inverse
-
-# Demo: RStudio &amp; GitHub
-
-## [Also, video from Nicholas Reich](https://www.youtube.com/watch?v=YxZ8J2rqhEM)
-
----
-
-## Create a local Git repository
-
-1 - RStudio &gt; New Project &gt; New directory &gt; R packages + create a git repository
-
-2 - Go to the git menu, on the top-right, and add your files of interest: 
-
-- (i) save your changes, 
-
-- (ii) open the commit window, 
-
-- (iii) select files, 
-
-- (iv) stage files, 
-
-- (v) write a commit message, 
-
-- (vi) commit
-
----
-
-## Create a local Git repository 
-
-1 - RStudio &gt; New Project &gt; New directory &gt; R packages + create a git repository
-
-2 - Go to the git menu, on the top-right, and add your files of interest: 
-
-3 - Synchronising with GitHub. Go to RStudio &gt; Tools &gt; Shell
-
-- create a new repo on [GitHub](https://github.com/new) and give it the same name as your package
-
-- push your local respository from the command line
-
-`git remote add origin https://github.com/magrichard/testgit.git`
-
-`git push -u origin master`
-
-4 - Check that your GitHub repository is updated [GitHub repo](https://github.com/magrichard/testgit)
-
----
-
-## Publishing your code on GitHub (or Gitlab...)
-
-
-1 - Change something (modify the hello.R file and create a new R file)
-
-2 - Go to the git menu, on the top-right, and add your files of interest: 
-
-- (i) save your changes, 
-
-- (ii) open the commit window, 
-
-- (iii) select files, 
-
-- (iv) stage files, 
-
-- (v) write a commit message, 
-
-- (vi) commit
-
-- **(vii) push**
-
-3 - Check that your GitHub repository is updated [GitHub repo](https://github.com/magrichard/testgit)
-
----
-
-## Import a GitHub repository into RStudio
-
-1 - On GitHub: [create new repo](https://github.com/new) with a README and a description. Leave all the other options as is, then click Submit. (no license, no gitignore...)
-
-2- **CLONE** your repository. **Copy** the web URL
-
-
-3- In RStudio: Create a New Project &gt; Version Control &gt; Git and **paste** the web URL of the project. Congratulation, you have cloned your new repo.
-
-- =&gt; You now have access to Git functionalities within Rstudio
-
----
-
-## Collaborative work on GitHub
-
-Option 1 - Equal collaborators: Everyone can pull, commit and push on the same 'master' branch
-
-Option 2 - One coordinator (master branch, owns the project) and one (or more) contributor:
-
-![workflow](workflow.png)
----
-
-## Collaborative work on GitHub
-
-Option 1 - Equal collaborators: Everyone can pull, commit and push on the same 'master' branch
-
-Option 2 - One coordinator (master branch, owns the project) and one (or more) contributor:
-
-- Fork the original repo
-
-- Clone it, and link it to the master repo 
-
-`git remote add upstream https://github.com/magrichard/testgit.git`
-
-- Uptade your fork with latest changes form the master repo (fetch and merge) 
-
-`git pull upstream master`
-
-- Commit, push on your fork, and create a [Pull Request](https://help.github.com/articles/creating-a-pull-request/) (that will be reviewed and accepted by the master)
+## References
+
+To complete:
+* https://cran.r-project.org/doc/contrib/Leisch-CreatingPackages.pdf
+* http://kbroman.org/pkg_primer/
+* https://github.com/klutometis/roxygen
+* http://r-pkgs.had.co.nz/
+* https://support.rstudio.com/hc/en-us/articles/200486488-Developing-Packages-with-RStudio
+* https://www.r-bloggers.com/how-to-write-and-debug-an-r-function/
+* https://nicercode.github.io/guides/functions/
+* https://swcarpentry.github.io/r-novice-inflammation/06-best-practices-R/
 
 ---
 
