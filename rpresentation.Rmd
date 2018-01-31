@@ -3,7 +3,7 @@ title: "Good practice for writing R code and R packages"
 subtitle: "https://jarbel.github.io/Rgoodpractice/rpresentation.html 
 Slides very closely following http://style.tidyverse.org/
 "
-author: "Julyan Arbel & Alexis Arnaud"
+author: "[Julyan Arbel](http://www.julyanarbel.com/) & [Alexis Arnaud](http://mistis.inrialpes.fr/people/arnaud/)"
 date: "February 8, 2018"
 output:
   xaringan::moon_reader:
@@ -166,8 +166,14 @@ x = 5
 
 ---
 
-## lintr and styler package
+## Automatic styling
 
+You can use `Ctrl + Shift + A` or `Command + Shift + A`
+```{r, out.width="30%"}
+knitr::include_graphics("fig/code-menu.png")
+```
+
+Or `lintr` and `styler` packages
 
 ```{r, eval=FALSE, echo=TRUE}
 install.packages(c("lintr", "styler"))
@@ -306,6 +312,8 @@ Presentation available at
 https://jarbel.github.io/Rgoodpractice/rpresentation.html
 
 <br>
+
+http://www.julyanarbel.com/ & http://mistis.inrialpes.fr/people/arnaud/
 
 Twitter: [@julyanarbel](https://twitter.com/julyanarbel)
 
