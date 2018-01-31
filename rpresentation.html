@@ -187,6 +187,36 @@ library("styler")
 
 ### lintr package
 
+lintr can be used o a source file, eg `bad_style.R` being the following source:
+
+
+```r
+# Spacing 
+average&lt;-mean(feet/12 + inches,na.rm=TRUE)
+sqrt(x ^ 2 + y ^ 2)
+x &lt;- 1 : 10
+base :: get
+
+# Indenting
+if (y &lt; 0 &amp;&amp; debug)
+message("Y is negative")
+
+# Assignment
+x = 5
+```
+
+Then run
+
+
+```r
+lint("bad_style.R")
+```
+
+
+---
+
+### lintr package
+
 &lt;img src="https://camo.githubusercontent.com/20dbcc29a25f1e86dcde02d2056508c322f6ae05/687474703a2f2f692e696d6775722e636f6d2f50494b6e70626e2e706e67" width="90%" style="display: block; margin: auto;" /&gt;
 
 
