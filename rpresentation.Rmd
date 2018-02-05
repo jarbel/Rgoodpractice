@@ -283,7 +283,167 @@ class: center, middle, inverse
 
 ---
 
+## System settings - Customization of R profile
 
+Create a R profile file '.Rprofile' with the path to your local library if needed into your code;
+e.g. .libPaths(new="~/R_libs")
+
+See http://gettinggeneticsdone.blogspot.com/2013/06/customize-rprofile.html for more informations.
+
+---
+
+## RStudio settings
+
+Project Options -> Build Tools
+
+Project buil tools : Package
+
+Check all boxes :)
+
+---
+
+## Package skeleton
+
+Create a directory with the name of your package, e.g. 'MyPackage', with inside the sub-directory 'R' for the R source code and the file 'DESCRIPTION' for meta-informations on your package.
+
+---
+DESCRIPTION file
+
+Package: MyPackage
+Version: 0.1
+Date: 2018-02-08
+Type: Package
+Title: My nice package
+Author: A. Arnaud
+Maintainer: Alexis Arnaud <alexis.arnaud@inria.fr>
+Description: Basic package to plot 2 ggplot2 plots.
+License: GPLv3
+URL: https://github.com/jarbel/Rgoodpractice.git
+
+---
+
+multiplot <- function(
+                      ...
+                    , plotlist = NULL
+                    , cols = 1
+                    , layout = NULL
+                      ) {
+    ## Make a list from the ... arguments and plotlist
+    plots <- c(
+        list(...)
+      , plotlist
+    )
+
+    numPlots <- length(x = plots)
+
+    ## If layout is NULL, then use 'cols' to determine layout
+    if ( is.null(x = layout) ) {
+        ## Make the panel
+        ## ncol: Number of columns of plots
+        ## nrow: Number of rows needed, calculated from ## of cols
+        layout <- matrix(
+            data = seq(
+                from = 1
+              , to = cols * ceiling(x = numPlots/cols)
+            )
+          , ncol = cols
+          , nrow = ceiling(x = numPlots/cols)
+        )
+    }
+
+    if ( numPlots == 1 ) {
+        print(x = plots[[1]] )
+    } else {
+        ## Set up the page
+        grid.newpage(recording = TRUE)
+        pushViewport(
+            viewport(
+                layout = grid.layout(
+                    nrow = nrow(layout)
+                  , ncol = ncol(layout)
+                )
+            )
+        )
+
+        ## Make each plot, in the correct location
+        for ( i in seq_len(length.out = numPlots) ) {
+            ## Get the i,j matrix positions of the regions that contain this subplot
+            matchidx <- as.data.frame(
+                x = which(
+                    x = layout == i
+                  , arr.ind = TRUE
+                )
+            )
+
+            print(
+                x = plots[[ i ]]
+              , vp = viewport(
+                    layout.pos.row = matchidx$row
+                  , layout.pos.col = matchidx$col
+                )
+            )
+        }
+    }
+}
+
+---
+
+plot_boxplot <- function(data) {
+    if ( !is.data.frame(x = data) ) {
+        data <- as.data.frame(x = data)
+    }
+
+    data_melt <- melt(data = data)
+
+    plot_pairs <- ggpairs(data = data)
+    plot_boxplot <- ggplot(
+        data = data_melt
+      , aes(
+            x = variable
+          , y = value
+          , fill=variable
+        )
+    ) +
+        geom_boxplot( )
+    multiplot(
+        plot_pairs
+      , plot_boxplot
+      , cols = 2
+    )
+}
+
+---
+
+## R code documentation
+
+RStudio menu -> code
+
+rxoygen template
+
+---
+
+## Documentation generation with roxygen2
+
+library(package = "roxygen2")
+
+roxygenize(
+    package.dir = "MyPackage"
+  , clean = TRUE
+)
+
+## Building of the package with the 'tools' package :
+library(package = "tools")
+
+---
+
+## Package building and installation
+
+Rcmd(args = "build MyPackage")
+or with a shell : R CMD build MyPackage
+
+## Installation and loading of the package :
+install.packages(pkgs = "MyPackage_0.1.tar.gz")
+library(package = "MyPackage")
 
 ---
 

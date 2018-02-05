@@ -9,14 +9,17 @@ roxygenize(
   , clean = TRUE
 )
 
-## Building of the package
-## shell : R CMD build MyPackage
+## Building of the package with the 'tools' package :
+library(package = "tools")
 
-## Installation and loading of the package
+Rcmd(args = "build MyPackage")
+## or with a shell : R CMD build MyPackage
+
+## Installation and loading of the package :
 install.packages(pkgs = "MyPackage_0.1.tar.gz")
 library(package = "MyPackage")
 
-## Tests
+## Test :
 n_col <- 3
 n_row <- 1e3
 
