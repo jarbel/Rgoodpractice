@@ -1,0 +1,15 @@
+Package: My_package
+Version: 0.1
+Date: 2018-02-08
+Type: Package
+Title: My package
+Authors@R: c(person("Arnaud", "Alexis", role = c("aut"), email = "alexis.arnaud@inria.fr"))
+Author: A. Arnaud
+Maintainer: Alexis Arnaud <alexis.arnaud@inria.fr>
+Description: Tutorial test
+License: GPL
+URL: http://www.r-project.org
+BugReports: alexis.arnaud@inria.fr
+NeedsCompilation: no
+Packaged: 2018-02-08 00:00:01 UTC; arnaud
+RoxygenNote: 6.0.1
