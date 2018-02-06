@@ -5,10 +5,6 @@ Type: Package
 Title: My nice package
 Author: A. Arnaud
 Maintainer: Alexis Arnaud <alexis.arnaud@inria.fr>
-Description: Tutorial test
-License: GPL
-URL: http://www.r-project.org
-BugReports: alexis.arnaud@inria.fr
-NeedsCompilation: no
-RoxygenNote: 6.0.1
-
+Description: Basic package to display 2 ggplot2 plots.
+License: GPLv3
+URL: https://github.com/jarbel/Rgoodpractice.git

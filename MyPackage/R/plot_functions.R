@@ -51,14 +51,13 @@ plot_boxplot <- function(data) {
       , aes(
             x = variable
           , y = value
-          , fill=variable
+          , fill = variable
         )
-    ) +
-        geom_boxplot( )
+    ) + geom_boxplot( )
+
     multiplot(
         plot_pairs
       , plot_boxplot
       , cols = 2
     )
 }
-
