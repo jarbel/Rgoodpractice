@@ -285,19 +285,25 @@ class: center, middle, inverse
 
 ## System settings - Customization of R profile
 
-Create a R profile file '.Rprofile' with the path to your local library if needed into your code;
-e.g. .libPaths(new="~/R_libs")
+Create a R profile file `.Rprofile` with the path to your local
+library if you use local libraries into your code;
+e.g. `.libPaths(new="~/R_libs")`
 
-See http://gettinggeneticsdone.blogspot.com/2013/06/customize-rprofile.html for more informations.
+See
+http://gettinggeneticsdone.blogspot.com/2013/06/customize-rprofile.html
+for more informations. 
 
 ---
 
 ## Package skeleton
 
-Create a directory with the name of your package, e.g. 'MyPackage', with inside the sub-directory 'R' for the R source code and the file 'DESCRIPTION' for meta-informations on your package.
+Create a directory with the name of your package, e.g. `MyPackage`,
+with inside the sub-directory `R` for the R source code and the file
+`DESCRIPTION` for meta-informations on your package.
 
 ---
-DESCRIPTION file
+
+### DESCRIPTION file
 
 Package: MyPackage
 Version: 0.1
@@ -312,10 +318,11 @@ URL: https://github.com/jarbel/Rgoodpractice.git
 
 ---
 
-## R code
+### R code files
 
 multiplot : http://www.cookbook-r.com/Graphs/Multiple_graphs_on_one_page_(ggplot2)/
 
+```{r, eval=FALSE, echo=TRUE}
 plot_boxplot <- function(data) {
     if ( !is.data.frame(x = data) ) {
         data <- as.data.frame(x = data)
@@ -339,36 +346,45 @@ plot_boxplot <- function(data) {
       , cols = 2
     )
 }
+```
 
 ---
 
 ## R code documentation
 
+Use the Roxygen templates to start the documentation:
+```{r, eval=FALSE, echo=TRUE}
 knitr::include_graphics("RStudio_-_Insert_Roxygen_Skeleton.png")
+```
 
-##' Title of the function
-##'
-##' @description Some description
-##' 
-##' @param <parameter name> name of each parameter and a short description (type, default value ...)
-##' 
-##' @return value of the function output
-##' 
-##' @author author of the function
-##' @seealso link to other functions or packages, e.g. \code{ \link[GGally]{ggpairs} } 
-##' @keywords some keywords for the code indexation
-##' 
-##' @examples one or several examples on how to use the function
-##'
-##' @importFrom <package name> <function name> to import some package or functions during the installation and the loading of the function
-##' 
-##' @export
-##' 
+And fill the Roxygen fields in order to best describe your function:
+ ##' Title of the function
+ ##'
+ ##' @description Some description
+ ##' 
+ ##' @param <parameter name> name of each parameter and a short description (type, default value ...)
+ ##' 
+ ##' @return value of the function output
+ ##' 
+ ##' @author author of the function
+ ##' @seealso link to other functions or packages, e.g. \code{ \link[GGally]{ggpairs} } 
+ ##' @keywords some keywords for the code indexation
+ ##' 
+ ##' @examples one or several examples on how to use the function
+ ##'
+ ##' @importFrom <package name> <function name> to import some package or functions during the installation and the loading of the function
+ ##' 
+ ##' @export
+ ##' 
 
 ---
 
 ## Documentation generation with roxygen2
 
+Now, you just need to run Roxygen before building and installing your
+package.
+
+```{r, eval=FALSE, echo=TRUE}
 library(package = "roxygen2")
 
 roxygenize(
@@ -376,22 +392,20 @@ roxygenize(
   , clean = TRUE
 )
 
----
-
-## Package building and installation
-
 library(package = "tools")
 Rcmd(args = "build MyPackage")
 
-or with a shell : R CMD build MyPackage
+## or with a shell : R CMD build MyPackage
 
 install.packages(pkgs = "MyPackage_0.1.tar.gz")
 library(package = "MyPackage")
+```
 
 ---
 
 ## Test
 
+```{r, eval=FALSE, echo=TRUE}
 n_col <- 3
 n_row <- 1e3
 
@@ -412,8 +426,11 @@ m_test <- t(
 )
 
 plot_boxplot(data = m_test)
+```
 
+```{r, eval=FALSE, echo=TRUE}
 knitr::include_graphics("R_plot_-_Example.png")
+```
 
 ---
 
