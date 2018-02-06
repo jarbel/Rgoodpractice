@@ -1,0 +1,14 @@
+Package: MyPackage
+Version: 0.1
+Date: 2018-02-08
+Type: Package
+Title: My nice package
+Author: A. Arnaud
+Maintainer: Alexis Arnaud <alexis.arnaud@inria.fr>
+Description: Tutorial test
+License: GPL
+URL: http://www.r-project.org
+BugReports: alexis.arnaud@inria.fr
+NeedsCompilation: no
+RoxygenNote: 6.0.1
+
