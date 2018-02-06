@@ -108,9 +108,9 @@ base::get
 
 # Good Alexis
 average &lt;- mean(
-    ( feet / 12 ) + inches 
+  ( feet / 12 ) + inches 
   , na.rm = TRUE
-  )
+)
 sqrt( x^2 + y^2 )
 x &lt;- 1:10
 base::get
@@ -135,7 +135,7 @@ if (y &lt; 0 &amp;&amp; debug) {
 
 # Bad
 if (y &lt; 0 &amp;&amp; debug)
-message("Y is negative")
+  message("Y is negative")
 ```
 
 ---
@@ -156,7 +156,7 @@ do_something_very_complicated(
 # Bad
 do_something_very_complicated("that", requires, many, arguments,
                               "some of which may be long"
-                              )
+)
 ```
 
 ---
@@ -177,7 +177,7 @@ x = 5
 ## Automatic styling
 
 You can use `Ctrl + Shift + A` or `Command + Shift + A`
-&lt;img src="fig/code-menu.png" width="30%" style="display: block; margin: auto;" /&gt;
+&lt;img src="fig/code-menu.png" width="20%" style="display: block; margin: auto;" /&gt;
 
 Or `lintr` and `styler` packages
 
@@ -204,7 +204,7 @@ base :: get
 
 # Indenting
 if (y &lt; 0 &amp;&amp; debug)
-message("Y is negative")
+  message("Y is negative")
 
 # Assignment
 x = 5
@@ -293,8 +293,12 @@ class: center, middle, inverse
 ## System settings - Customization of R profile
 
 Create a R profile file `.Rprofile` with the path to your local
-library if you use local libraries into your code;
-e.g. `.libPaths(new="~/R_libs")`
+library if you use local libraries into your code, e.g :
+
+
+```r
+  .libPaths(new="~/R_libs")
+```
 
 See
 http://gettinggeneticsdone.blogspot.com/2013/06/customize-rprofile.html
@@ -305,23 +309,24 @@ for more informations.
 ## Package skeleton
 
 Create a directory with the name of your package, e.g. `MyPackage`,
-with inside the sub-directory `R` for the R source code and the file
-`DESCRIPTION` for meta-informations on your package.
+with inside:
+* the sub-directory `R` for the R source code
+* the file `DESCRIPTION` for meta-informations on your package.
 
 ---
 
 ### DESCRIPTION file
 
-Package: MyPackage
-Version: 0.1
-Date: 2018-02-08
-Type: Package
-Title: My nice package
-Author: A. Arnaud
-Maintainer: Alexis Arnaud &lt;alexis.arnaud@inria.fr&gt;
-Description: Basic package to display 2 ggplot2 plots.
-License: GPLv3
-URL: https://github.com/jarbel/Rgoodpractice.git
+* Package: MyPackage
+* Version: 0.1
+* Date: 2018-02-08
+* Type: Package
+* Title: My nice package
+* Author: A. Arnaud
+* Maintainer: Alexis Arnaud &lt;alexis.arnaud@inria.fr&gt;
+* Description: Basic package to display 2 ggplot2 plots.
+* License: GPLv3
+* URL: https://github.com/jarbel/Rgoodpractice.git
 
 ---
 
@@ -332,27 +337,20 @@ multiplot : http://www.cookbook-r.com/Graphs/Multiple_graphs_on_one_page_(ggplot
 
 ```r
 plot_boxplot &lt;- function(data) {
-    if ( !is.data.frame(x = data) ) {
-        data &lt;- as.data.frame(x = data)
-    }
-
-    data_melt &lt;- melt(data = data)
-
-    plot_pairs &lt;- ggpairs(data = data)
-    plot_boxplot &lt;- ggplot(
-        data = data_melt
-      , aes(
-            x = variable
-          , y = value
-          , fill=variable
-        )
-    ) +
-        geom_boxplot( )
-    multiplot(
-        plot_pairs
-      , plot_boxplot
-      , cols = 2
-    )
+  if ( !is.data.frame(x = data) ) data &lt;- as.data.frame(x = data)
+  data_melt &lt;- melt(data = data)
+  plot_pairs &lt;- ggpairs(data = data)
+  plot_boxplot &lt;- ggplot(
+    data = data_melt
+    , aes(
+      x = variable
+      , y = value
+      , fill=variable)
+  ) + geom_boxplot( )
+  multiplot(
+    plot_pairs
+    , plot_boxplot
+    , cols = 2)
 }
 ```
 
@@ -361,44 +359,37 @@ plot_boxplot &lt;- function(data) {
 ## R code documentation
 
 Use the Roxygen templates to start the documentation:
+&lt;img src="RStudio_-_Insert_Roxygen_Skeleton.png" width="75%" style="display: block; margin: auto;" /&gt;
 
-```r
-knitr::include_graphics("RStudio_-_Insert_Roxygen_Skeleton.png")
-```
+---
+
+## R code documentation
 
 And fill the Roxygen fields in order to best describe your function:
- ##' Title of the function
- ##'
- ##' @description Some description
- ##' 
- ##' @param &lt;parameter name&gt; name of each parameter and a short description (type, default value ...)
- ##' 
- ##' @return value of the function output
- ##' 
- ##' @author author of the function
- ##' @seealso link to other functions or packages, e.g. \code{ \link[GGally]{ggpairs} } 
- ##' @keywords some keywords for the code indexation
- ##' 
- ##' @examples one or several examples on how to use the function
- ##'
- ##' @importFrom &lt;package name&gt; &lt;function name&gt; to import some package or functions during the installation and the loading of the function
- ##' 
- ##' @export
- ##' 
+* Title of the function
+* @description Some description
+* @param &lt;parameter name&gt; name of each parameter and a short description (type, default value ...)
+* @return value of the function output
+* @author author of the function
+* @seealso link to other functions or packages, e.g. \code{ \link[GGally]{ggpairs} } 
+* @keywords some keywords for the code indexation
+* @examples one or several examples on how to use the function
+* @importFrom &lt;package name&gt; &lt;function name&gt; to import some package or functions during the installation and the loading of the function
+* @export
 
 ---
 
 ## Documentation generation with roxygen2
 
-Now, you just need to run Roxygen before building and installing your
-package.
+Now, you just need to move your R files to the R directory of your package, and
+then run Roxygen before building and installing your package.
 
 
 ```r
 library(package = "roxygen2")
 
 roxygenize(
-    package.dir = "MyPackage"
+  package.dir = "MyPackage"
   , clean = TRUE
 )
 
@@ -421,28 +412,29 @@ n_col &lt;- 3
 n_row &lt;- 1e3
 
 m_test &lt;- t(
-    x = matrix(
-        data = rnorm(
-            n = n_col * n_row
-          , mean = 0
-          , sd = 1
-        )
-      , nrow = n_col
-      , ncol = n_row
-      , dimnames = list(
-            "Variables" = paste("V ", seq_len(length.out = n_col), sep = "")
-          , "Observations" = NULL
-        )
-    ) * c(0.1, 1, 3) + c(-1, 1, 0)
+  x = matrix(
+    data = rnorm(
+      n = n_col * n_row
+      , mean = 0
+      , sd = 1
+    )
+    , nrow = n_col
+    , ncol = n_row
+    , dimnames = list(
+      "Variables" = paste("V ", seq_len(length.out = n_col), sep = "")
+      , "Observations" = NULL
+    )
+  ) * c(0.1, 1, 3) + c(-1, 1, 0)
 )
 
 plot_boxplot(data = m_test)
 ```
 
+---
 
-```r
-knitr::include_graphics("R_plot_-_Example.png")
-```
+## Test
+
+&lt;img src="R_plot_-_Example.png" width="75%" style="display: block; margin: auto;" /&gt;
 
 ---
 
