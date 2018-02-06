@@ -1,0 +1,10 @@
+Package: MyPackage
+Version: 0.1
+Date: 2018-02-08
+Type: Package
+Title: My nice package
+Author: A. Arnaud
+Maintainer: Alexis Arnaud <alexis.arnaud@inria.fr>
+Description: Basic package to display 2 ggplot2 plots.
+License: GPLv3
+URL: https://github.com/jarbel/Rgoodpractice.git
