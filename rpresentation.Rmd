@@ -473,6 +473,6 @@ http://www.julyanarbel.com/ & http://mistis.inrialpes.fr/people/arnaud/
 
 Twitter: [@julyanarbel](https://twitter.com/julyanarbel)
 
-GitHub: [@jarbel](https://github.com/jarbel)
+GitHub: [@jarbel](https://github.com/jarbel) & [@A-Alexis](https://github.com/A-Alexis)
 
 .footnote[Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).]
