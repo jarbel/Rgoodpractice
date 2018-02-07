@@ -8,7 +8,7 @@ date: "February 8, 2018"
 output:
   xaringan::moon_reader:
     includes:
-      <-- after_body: include_twitter.html -->
+       after_body: include_twitter.html
     lib_dir: libs
     nature:
       highlightStyle: github
@@ -259,6 +259,18 @@ As well as the following variants of `style_text()`:
 * `style_dir()` styles all .R files in a directory.
 * `style_pkg()` styles the source files of an R package.
 * RStudio Addins for styling the active file, styling the current package and styling the highlighted code region.
+
+---
+
+## Other tidying packages
+
+**Get automatic advice about your package**
+
+Install and run `goodpractice` package for *Advice (that) includes functions and syntax to avoid, package structure, code complexity, code formatting, etc.*
+
+**Remove typos!**
+
+Use the `devtools::spell_check()` function. 
 
 ---
 

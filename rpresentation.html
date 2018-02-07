@@ -4,8 +4,7 @@
     <title>Good practice for writing R code and R packages</title>
     <meta charset="utf-8">
     <meta name="author" content="Julyan Arbel &amp; Alexis Arnaud" />
-    <link href="libs/remark-css/default.css" rel="stylesheet" />
-    <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
+    <link href="libs/remark-css/example.css" rel="stylesheet" />
   </head>
   <body>
     <textarea id="source">
@@ -269,6 +268,18 @@ As well as the following variants of `style_text()`:
 
 ---
 
+## Other tidying packages
+
+**Get automatic advice about your package**
+
+Install and run `goodpractice` package for *Advice (that) includes functions and syntax to avoid, package structure, code complexity, code formatting, etc.*
+
+**Remove typos!**
+
+Use the `devtools::spell_check()` function. 
+
+---
+
 ## References
 
 To complete:
@@ -478,15 +489,9 @@ GitHub: [@jarbel](https://github.com/jarbel)
 "highlightLines": true,
 "countIncrementalSlides": false
 });
-if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
-  window.dispatchEvent(new Event('resize'));
-});
-(function() {
-  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
-  if (!r) return;
-  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
-  d.head.appendChild(s);
-})();</script>
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {window.dispatchEvent(new Event('resize'));});
+(function() {var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler"); if (!r) return; s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }"; d.head.appendChild(s);})();</script>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
