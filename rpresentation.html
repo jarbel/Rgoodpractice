@@ -324,20 +324,46 @@ with inside:
 * the sub-directory `R` for the R source code
 * the file `DESCRIPTION` for meta-informations on your package.
 
+
+```r
+dir.create(
+    path = "MyPackage" )
+dir.create(
+    path = paste(
+        "MyPackage"
+      , "R"
+      , sep = .Platform$file.sep ) )
+file.create(
+    path = paste(
+        "MyPackage"
+      , "DESCRIPTION"
+      , sep = .Platform$file.sep ) )
+```
+
 ---
 
 ### DESCRIPTION file
 
-* Package: MyPackage
-* Version: 0.1
-* Date: 2018-02-08
-* Type: Package
-* Title: My nice package
-* Author: A. Arnaud
-* Maintainer: Alexis Arnaud &lt;alexis.arnaud@inria.fr&gt;
-* Description: Basic package to display 2 ggplot2 plots.
-* License: GPLv3
-* URL: https://github.com/jarbel/Rgoodpractice.git
+
+```r
+cat( c(
+    "Package: MyPackage"
+  , "Version: 0.1"
+  , "Date: 2018-02-08"
+  , "Type: Package"
+  , "Title: My nice package"
+  , "Author: A. Arnaud"
+  , "Maintainer: Alexis Arnaud &lt;alexis.arnaud@inria.fr&gt;"
+  , "Description: Basic package to display 2 ggplot2 plots."
+  , "License: GPLv3"
+  , "URL: https://github.com/jarbel/Rgoodpractice.git" )
+  , file = paste(
+        "MyPackage"
+      , "DESCRIPTION"
+      , sep = .Platform$file.sep )
+  , sep = "\n"
+  , append = TRUE )
+```
 
 ---
 
@@ -347,7 +373,8 @@ multiplot : http://www.cookbook-r.com/Graphs/Multiple_graphs_on_one_page_(ggplot
 
 
 ```r
-plot_boxplot &lt;- function(data) {
+cat( c(
+ "plot_boxplot &lt;- function(data) {
   if ( !is.data.frame(x = data) ) data &lt;- as.data.frame(x = data)
   data_melt &lt;- melt(data = data)
   plot_pairs &lt;- ggpairs(data = data)
@@ -362,7 +389,10 @@ plot_boxplot &lt;- function(data) {
     plot_pairs
     , plot_boxplot
     , cols = 2)
-}
+  }" )
+  , file = "plot_functions.R"
+  , sep = "\n"
+  , append = TRUE )
 ```
 
 ---
@@ -399,10 +429,17 @@ then run Roxygen before building and installing your package.
 ```r
 library(package = "roxygen2")
 
+for ( file in c( "plot_functions.R", "multiplot.R" ) ) {
+file.copy( from = file
+        , to = paste(
+              "MyPackage"
+            , "R"
+            , file
+            , sep = .Platform$file.sep ) ) }
+
 roxygenize(
   package.dir = "MyPackage"
-  , clean = TRUE
-)
+  , clean = TRUE )
 
 library(package = "tools")
 Rcmd(args = "build MyPackage")
@@ -479,7 +516,7 @@ http://www.julyanarbel.com/ &amp; http://mistis.inrialpes.fr/people/arnaud/
 
 Twitter: [@julyanarbel](https://twitter.com/julyanarbel)
 
-GitHub: [@jarbel](https://github.com/jarbel)
+GitHub: [@jarbel](https://github.com/jarbel) &amp; [@A-Alexis](https://github.com/A-Alexis)
 
 .footnote[Slides created via the R package [**xaringan**](https://github.com/yihui/xaringan).]
     </textarea>
